@@ -1,3 +1,4 @@
+use crate::Perf;
 const INPUT: &str = include_str!("d1input");
 
 fn part1(numbers: &[usize]) {
@@ -30,6 +31,9 @@ pub fn main() {
         .filter_map(|str_num| str_num.parse().ok())
         .collect::<Vec<usize>>();
 
+    let perf = Perf::default();
     part1(numbers.as_slice());
+    perf.print("Part1");
     part2(numbers.as_slice());
+    perf.print("Part2");
 }
