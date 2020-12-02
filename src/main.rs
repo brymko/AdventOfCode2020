@@ -1,3 +1,4 @@
+#![allow(unused)]
 mod d1;
 mod d2;
 

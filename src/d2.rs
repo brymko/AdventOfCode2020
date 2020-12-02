@@ -7,7 +7,7 @@ struct PlociyPw {
     min: u8,
     max: u8,
     ch: char,
-    pw: String,
+    pw: Vec<char>,
 }
 
 impl PlociyPw {
@@ -23,7 +23,7 @@ impl PlociyPw {
 
         let (min, max) = (*min_max.get(0)?, *min_max.get(1)?);
 
-        let pw = parts.next()?.to_string();
+        let pw = parts.next()?.chars().collect::<Vec<char>>();
 
         Some(PlociyPw { min, max, ch, pw })
     }
@@ -31,15 +31,15 @@ impl PlociyPw {
     fn is_valid(&self) -> bool {
         let amount = self
             .pw
-            .chars()
-            .fold(0, |acc, c| if c == self.ch { acc + 1 } else { acc });
+            .iter()
+            .fold(0, |acc, &c| if c == self.ch { acc + 1 } else { acc });
         self.max >= amount && amount >= self.min
     }
 
     fn is_part2_valid(&self) -> bool {
         let validate = || -> Option<bool> {
-            let first = self.pw.chars().nth(self.min as usize - 1)?;
-            let second = self.pw.chars().nth(self.max as usize - 1)?;
+            let first = *self.pw.get(self.min as usize - 1)?;
+            let second = *self.pw.get(self.max as usize - 1)?;
 
             if first == self.ch && second != self.ch || first != self.ch && second == self.ch {
                 Some(true)
@@ -53,12 +53,13 @@ impl PlociyPw {
 }
 
 pub fn main() {
+    let perf = Perf::default();
     let input = INPUT
         .split('\n')
         .filter_map(|line| PlociyPw::from(line))
         .collect::<Vec<PlociyPw>>();
 
-    let perf = Perf::default();
+    perf.print("setup");
     part1(input.as_slice());
     perf.print("part1");
     part2(input.as_slice());
