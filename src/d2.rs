@@ -3,14 +3,14 @@ use crate::Perf;
 const INPUT: &str = include_str!("d2input");
 
 #[derive(Debug)]
-struct PlociyPw {
+struct PolicyPw {
     min: u8,
     max: u8,
     ch: char,
     pw: Vec<char>,
 }
 
-impl PlociyPw {
+impl PolicyPw {
     fn from(input: &str) -> Option<Self> {
         let mut parts = input.split(' ');
         let min_max = parts
@@ -25,10 +25,10 @@ impl PlociyPw {
 
         let pw = parts.next()?.chars().collect::<Vec<char>>();
 
-        Some(PlociyPw { min, max, ch, pw })
+        Some(PolicyPw { min, max, ch, pw })
     }
 
-    fn is_valid(&self) -> bool {
+    fn is_part1_valid(&self) -> bool {
         let amount = self
             .pw
             .iter()
@@ -56,8 +56,8 @@ pub fn main() {
     let perf = Perf::default();
     let input = INPUT
         .split('\n')
-        .filter_map(|line| PlociyPw::from(line))
-        .collect::<Vec<PlociyPw>>();
+        .filter_map(|line| PolicyPw::from(line))
+        .collect::<Vec<PolicyPw>>();
 
     perf.print("setup");
     part1(input.as_slice());
@@ -66,15 +66,15 @@ pub fn main() {
     perf.print("part2");
 }
 
-fn part1(input: &[PlociyPw]) {
+fn part1(input: &[PolicyPw]) {
     let correct = input
         .iter()
-        .fold(0, |acc, el| if el.is_valid() { acc + 1 } else { acc });
+        .fold(0, |acc, el| if el.is_part1_valid() { acc + 1 } else { acc });
 
     println!("part1: {} correct pws", correct);
 }
 
-fn part2(input: &[PlociyPw]) {
+fn part2(input: &[PolicyPw]) {
     let correct = input
         .iter()
         .fold(0, |acc, el| if el.is_part2_valid() { acc + 1 } else { acc });
