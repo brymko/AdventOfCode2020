@@ -13,16 +13,15 @@ struct PolicyPw {
 impl PolicyPw {
     fn from(input: &str) -> Option<Self> {
         let mut parts = input.split(' ');
-        let min_max = parts
+        let mut min_max = parts
             .next()?
             .split('-')
-            .filter_map(|elem| elem.parse().ok())
-            .collect::<Vec<u8>>();
+            .filter_map(|elem| elem.parse::<u8>().ok());
+
+        let min = min_max.next()?;
+        let max = min_max.next()?;
 
         let ch = parts.next()?.chars().next()?;
-
-        let (min, max) = (*min_max.get(0)?, *min_max.get(1)?);
-
         let pw = parts.next()?.chars().collect::<Vec<char>>();
 
         Some(PolicyPw { min, max, ch, pw })
@@ -33,7 +32,7 @@ impl PolicyPw {
             .pw
             .iter()
             .fold(0, |acc, &c| if c == self.ch { acc + 1 } else { acc });
-        self.max >= amount && amount >= self.min
+        self.min <= amount && amount <= self.max
     }
 
     fn is_part2_valid(&self) -> bool {
@@ -48,7 +47,7 @@ impl PolicyPw {
             }
         };
 
-        validate().unwrap()
+        validate().unwrap_or(false)
     }
 }
 
