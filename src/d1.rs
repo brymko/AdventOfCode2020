@@ -26,12 +26,13 @@ fn part2(numbers: &[usize]) {
 }
 
 pub fn main() {
+    let perf = Perf::default();
     let numbers = INPUT
         .split('\n')
         .filter_map(|str_num| str_num.parse().ok())
         .collect::<Vec<usize>>();
 
-    let perf = Perf::default();
+    perf.print("setup");
     part1(numbers.as_slice());
     perf.print("Part1");
     part2(numbers.as_slice());

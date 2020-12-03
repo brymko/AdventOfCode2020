@@ -1,6 +1,7 @@
 #![allow(unused)]
 mod d1;
 mod d2;
+mod d3;
 
 use std::cell::Cell;
 use std::time;
@@ -34,5 +35,5 @@ impl Perf {
 }
 
 fn main() {
-    d2::main();
+    d3::main();
 }
