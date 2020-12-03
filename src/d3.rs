@@ -9,11 +9,19 @@ pub fn main() {
         .filter(|line| !line.is_empty())
         .collect::<Vec<&str>>();
 
+    let fast = INPUT
+        .split('\n')
+        .filter(|line| !line.is_empty())
+        .map(|line| line.chars().collect::<Vec<char>>())
+        .collect::<Vec<Vec<char>>>();
+
     perf.print("setup");
     part1(input.as_slice());
     perf.print("part1");
     part2(input.as_slice());
     perf.print("part2");
+    part2_fast(fast.as_slice());
+    perf.print("part2_fast");
 }
 
 fn part1(input: &[&str]) {
@@ -48,4 +56,25 @@ fn check_slope(input: &[&str], right: usize, down: usize) -> usize {
                 acc
             }
         })
+}
+
+fn part2_fast(input: &[Vec<char>]) {
+    let mut slopes_to_check = [(1, 1, 0), (3, 1, 0), (5, 1, 0), (7, 1, 0), (1, 2, 0)];
+
+    input.iter().enumerate().for_each(|(i, k)| {
+        if i == 0 {
+            return;
+        }
+        for slope in &mut slopes_to_check {
+            if i % slope.1 == 0 {
+                let field = *k.get((slope.0 * (i / slope.1)) % k.len()).unwrap();
+                if field == '#' {
+                    slope.2 += 1;
+                }
+            }
+        }
+    });
+
+    let ammount = slopes_to_check.iter().fold(1, |acc, slope| slope.2 * acc);
+    println!("part2_fast: {}", ammount);
 }
