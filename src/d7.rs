@@ -31,8 +31,6 @@ pub fn main() {
         Some((bname.to_string(), subbags))
     }));
 
-    println!("{:#?}", input);
-
     perf.print("setup");
     part1(&input);
     perf.print("part1");
