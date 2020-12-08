@@ -6,6 +6,7 @@ mod d4;
 mod d5;
 mod d6;
 mod d7;
+mod d8;
 
 use std::cell::Cell;
 use std::time;
@@ -39,5 +40,5 @@ impl Perf {
 }
 
 fn main() {
-    d7::main();
+    d8::main();
 }
