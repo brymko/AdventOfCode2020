@@ -43,7 +43,6 @@ pub fn main() {
     let perf = Perf::default();
 
     let ins = INPUT.lines().filter_map(Ins::from_line).collect::<Vec<Ins>>();
-    println!("{:#?}", ins);
 
     perf.print("setup");
     part1(ins.as_slice());
@@ -57,14 +56,8 @@ fn part1(ins: &[Ins]) {
     let mut pc = 0isize;
     let mut ins = ins.iter().cloned().collect::<Vec<Ins>>();
     loop {
-        // crash to better debug
-        // if pc >= ins.len() {
-        //     break;
-        // }
-
         let instruct = &mut ins[pc as usize];
 
-        println!("{:?}", instruct);
         if instruct.visited {
             break;
         }
@@ -106,7 +99,6 @@ fn part2_try(c: usize, ins: &[Ins]) -> Option<isize>{
 
         let instruct = &mut ins[pc as usize];
 
-        println!("{:?}", instruct);
         if instruct.visited {
             return None;
         }
