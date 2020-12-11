@@ -4,11 +4,6 @@ use std::iter::FromIterator;
 
 const INPUT: &str = include_str!("d10input");
 
-#[derive(Debug)]
-struct Bags {
-    hm: HashMap<String, Vec<(u32, String)>>,
-}
-
 pub fn main() {
     let perf = Perf::default();
 
