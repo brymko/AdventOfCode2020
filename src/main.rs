@@ -3,6 +3,7 @@ mod d1;
 mod d10;
 mod d11;
 mod d12;
+mod d13;
 mod d2;
 mod d3;
 mod d4;
@@ -44,5 +45,5 @@ impl Perf {
 }
 
 fn main() {
-    d12::main();
+    d13::main();
 }
