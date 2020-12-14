@@ -44,7 +44,7 @@ fn part1(start: usize, busses: &[Bus]) {
     let mut loweset = usize::MAX;
 
     for bus in busses {
-        let diff = bus.interval - start % bus.interval;
+        let diff = bus.interval - start.rem_euclid(bus.interval);
         if diff < loweset {
             loweset = diff;
             id = bus.interval;
@@ -55,13 +55,15 @@ fn part1(start: usize, busses: &[Bus]) {
 }
 
 fn part2(busses: &[Bus]) {
+    println!("{:#?}", busses);
     let t = busses
         .iter()
         .fold((0, 1), |mut acc, b| {
-            while (acc.0 + b.deps_diff) % b.interval != 0 {
+            while (acc.0 + b.deps_diff).rem_euclid(b.interval) != 0 {
                 acc.0 += acc.1;
             }
             acc.1 *= b.interval;
+            println!("{:?}", acc);
             acc
         })
         .0;
