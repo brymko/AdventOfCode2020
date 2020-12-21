@@ -7,7 +7,12 @@ mod d13;
 mod d14;
 mod d15;
 mod d16;
+mod d17;
+mod d18;
+mod d19;
 mod d2;
+mod d20;
+mod d21;
 mod d3;
 mod d4;
 mod d5;
@@ -48,5 +53,5 @@ impl Perf {
 }
 
 fn main() {
-    d16::main();
+    d21::main();
 }
